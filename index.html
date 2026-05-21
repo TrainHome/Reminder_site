@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Памятка: авторское право — плотный дизайн с деталями</title>
+    <title>Памятка: авторское право — живая атмосфера</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
             box-sizing: border-box;
         }
 
-        /* ========== СВЕТЛАЯ ТЕМА (тёплые, бумажные оттенки) ========== */
         :root {
             --bg-body: #fcf7ef;
             --paper-bg: #fffef7;
@@ -33,10 +32,9 @@
             --badge-bg: #f4e5d3;
             --btn-bg: #fff3e6;
             --btn-hover: #d97a2b;
-            --deco-opacity: 0.6;
+            --deco-opacity: 0.5;
         }
 
-        /* ========== ТЁМНАЯ ТЕМА (холодные сине-серые) ========== */
         body.dark {
             --bg-body: #0f1724;
             --paper-bg: #1a2538;
@@ -64,67 +62,75 @@
             color: var(--text-primary);
             line-height: 1.45;
             scroll-behavior: smooth;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.3s, color 0.2s;
+            overflow-x: hidden;
         }
 
-        /* декоративные элементы (предметы по теме) */
-        .deco-camera, .deco-gavel, .deco-magnifier, .deco-torn {
+        /* ========== УСИЛЕННЫЙ АНИМИРОВАННЫЙ ФОН ========== */
+        .floating-bg {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            z-index: 5;
-            opacity: var(--deco-opacity);
-            transition: opacity 0.2s;
+            z-index: 0;
+            overflow: hidden;
         }
-        .deco-camera { bottom: 6%; right: 2%; width: 70px; }
-        .deco-gavel { bottom: 12%; left: 1%; width: 64px; transform: rotate(-8deg);}
-        .deco-magnifier { top: 18%; right: 3%; width: 56px; }
-        .deco-torn { top: 28%; left: -10px; width: 90px; opacity: 0.35; transform: rotate(5deg);}
-        @media (max-width: 760px) {
-            .deco-camera, .deco-gavel, .deco-magnifier, .deco-torn { display: none; }
-        }
-
-        /* эффект рваных краёв */
-        .paper-card {
-            background: var(--paper-bg);
-            border-radius: 0;
-            margin-bottom: 2.5rem;
-            padding: 1.8rem 2rem;
-            box-shadow: 10px 12px 20px var(--paper-shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s;
-            position: relative;
-            clip-path: polygon(
-                0% 3%, 3% 0%, 97% 0%, 100% 3%,
-                100% 95%, 97% 100%, 92% 97%, 88% 100%,
-                82% 96%, 76% 100%, 70% 97%, 64% 100%,
-                58% 96%, 52% 100%, 46% 97%, 40% 100%,
-                34% 96%, 28% 100%, 22% 97%, 16% 100%,
-                10% 96%, 5% 100%, 2% 95%, 0% 90%
-            );
-        }
-        /* маленькие стикеры внутри */
-        .sticker-rip {
+        .float-icon {
             position: absolute;
             font-size: 2rem;
-            opacity: 0.35;
-            bottom: -10px;
-            right: -8px;
-            transform: rotate(5deg);
+            opacity: var(--deco-opacity);
+            animation: floatSlow linear infinite;
+            filter: blur(0.3px);
+        }
+        @keyframes floatSlow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(15px, -10px) rotate(5deg); }
+            50% { transform: translate(-8px, 12px) rotate(-3deg); }
+            75% { transform: translate(10px, 8px) rotate(4deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        /* канцелярские принадлежности — скрепки, зажимы */
+        .stationery {
+            position: absolute;
+            font-size: 1.6rem;
+            opacity: calc(var(--deco-opacity) * 0.6);
             pointer-events: none;
+            animation: driftStationery 35s ease-in-out infinite;
         }
-        .paper-card-sm {
-            background: var(--paper-bg);
-            padding: 1rem 1.2rem;
-            clip-path: polygon(0% 2%, 2% 0%, 98% 0%, 100% 2%, 100% 96%, 98% 100%, 94% 97%, 90% 100%, 84% 96%, 78% 100%, 72% 97%, 66% 100%, 58% 96%, 50% 100%, 42% 97%, 34% 100%, 26% 96%, 18% 100%, 10% 97%, 4% 100%, 0% 96%);
-            box-shadow: 5px 6px 12px var(--paper-shadow);
+        @keyframes driftStationery {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(8px, -5px) rotate(12deg); }
+            66% { transform: translate(-5px, 8px) rotate(-6deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
         }
+        /* многослойность: разные иконки с разной скоростью */
+        .float-icon:nth-child(1) { top: 6%; left: 3%; font-size: 2.6rem; animation-duration: 24s; }
+        .float-icon:nth-child(2) { bottom: 10%; right: 4%; font-size: 2.2rem; animation-duration: 28s; animation-delay: 1s; }
+        .float-icon:nth-child(3) { top: 22%; right: 7%; font-size: 3rem; animation-duration: 32s; animation-delay: 0.5s; }
+        .float-icon:nth-child(4) { bottom: 28%; left: 5%; font-size: 2.4rem; animation-duration: 26s; animation-delay: 2s; }
+        .float-icon:nth-child(5) { top: 55%; left: 12%; font-size: 2rem; animation-duration: 30s; animation-delay: 0s; }
+        .float-icon:nth-child(6) { top: 40%; right: 14%; font-size: 2.8rem; animation-duration: 22s; animation-delay: 1.5s; }
+        .float-icon:nth-child(7) { bottom: 45%; left: 18%; font-size: 2.1rem; animation-duration: 34s; animation-delay: 0.8s; }
+        .float-icon:nth-child(8) { top: 75%; right: 20%; font-size: 2.5rem; animation-duration: 27s; animation-delay: 2.2s; }
+        .float-icon:nth-child(9) { top: 12%; right: 28%; font-size: 1.9rem; animation-duration: 36s; animation-delay: 1.2s; }
+        .float-icon:nth-child(10) { bottom: 65%; left: 28%; font-size: 2.3rem; animation-duration: 29s; }
+
+        /* скрепки и канцелярия */
+        .stationery:nth-child(11) { top: 15%; left: 85%; font-size: 1.8rem; animation-duration: 40s; }
+        .stationery:nth-child(12) { bottom: 20%; right: 88%; font-size: 1.5rem; animation-duration: 45s; animation-delay: 2s; }
+        .stationery:nth-child(13) { top: 70%; left: 4%; font-size: 1.7rem; animation-duration: 38s; }
+        .stationery:nth-child(14) { top: 30%; left: 92%; font-size: 1.4rem; animation-duration: 42s; animation-delay: 1s; }
 
         .container {
-            max-width: 1040px;
+            max-width: 1080px;
             margin: 0 auto;
             padding: 2rem 1.5rem 4rem;
+            position: relative;
+            z-index: 10;
         }
 
-        /* кнопка бургера — слева */
         .burger-fixed {
             position: fixed;
             top: 1.5rem;
@@ -143,12 +149,8 @@
             backdrop-filter: blur(4px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .burger-fixed:hover {
-            background: var(--btn-hover);
-            color: white;
-        }
+        .burger-fixed:hover { background: var(--btn-hover); color: white; }
 
-        /* путеводитель */
         .guide-menu {
             position: fixed;
             top: 0;
@@ -168,9 +170,7 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .guide-menu.open {
-            transform: translateX(0);
-        }
+        .guide-menu.open { transform: translateX(0); }
         .guide-header h3 {
             font-size: 1.6rem;
             display: flex;
@@ -178,20 +178,9 @@
             border-bottom: 2px dotted var(--accent-gold);
             padding-bottom: 0.5rem;
         }
-        .close-guide {
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-        }
-        .guide-nav {
-            list-style: none;
-            margin: 1.5rem 0 2rem 0;
-        }
-        .guide-nav li {
-            margin-bottom: 1.2rem;
-        }
+        .close-guide { font-size: 1.8rem; cursor: pointer; background: none; border: none; color: var(--text-secondary); }
+        .guide-nav { list-style: none; margin: 1.5rem 0 2rem 0; }
+        .guide-nav li { margin-bottom: 1.2rem; }
         .guide-nav a {
             text-decoration: none;
             font-weight: 500;
@@ -201,17 +190,9 @@
             display: inline-block;
             width: 100%;
             padding: 0.3rem 0;
-            transition: 0.1s;
         }
-        .guide-nav a:hover {
-            color: var(--accent-red);
-            padding-left: 0.4rem;
-        }
-        .theme-inside {
-            margin-top: auto;
-            padding-top: 1.5rem;
-            border-top: 2px dotted var(--border-ink);
-        }
+        .guide-nav a:hover { color: var(--accent-red); padding-left: 0.4rem; }
+        .theme-inside { margin-top: auto; padding-top: 1.5rem; border-top: 2px dotted var(--border-ink); }
         .theme-inside button {
             background: var(--btn-bg);
             border: 1px solid var(--border-ink);
@@ -219,7 +200,6 @@
             width: 100%;
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.85rem;
-            font-weight: 500;
             cursor: pointer;
             color: var(--text-primary);
             clip-path: polygon(0% 0%, 96% 0%, 100% 20%, 100% 80%, 96% 100%, 0% 100%, 0% 80%, 2% 20%);
@@ -235,24 +215,35 @@
             z-index: 1000;
             display: none;
         }
-        .overlay.active {
-            display: block;
-        }
+        .overlay.active { display: block; }
 
-        /* hero с декоративными элементами */
+        .paper-card {
+            background: var(--paper-bg);
+            margin-bottom: 2.5rem;
+            padding: 1.8rem 2rem;
+            box-shadow: 10px 12px 20px var(--paper-shadow);
+            position: relative;
+            clip-path: polygon(0% 3%, 3% 0%, 97% 0%, 100% 3%, 100% 95%, 97% 100%, 92% 97%, 88% 100%, 82% 96%, 76% 100%, 70% 97%, 64% 100%, 58% 96%, 52% 100%, 46% 97%, 40% 100%, 34% 96%, 28% 100%, 22% 97%, 16% 100%, 10% 96%, 5% 100%, 2% 95%, 0% 90%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.5s ease;
+        }
+        .paper-card.revealed { opacity: 1; transform: translateY(0); }
         .hero-ripped {
             background: var(--paper-bg);
             text-align: center;
             padding: 2rem 1.8rem;
             margin: 2rem 0 3rem 0;
             box-shadow: 12px 14px 22px var(--paper-shadow);
-            position: relative;
             clip-path: polygon(0% 5%, 4% 0%, 96% 0%, 100% 5%, 100% 92%, 95% 100%, 85% 96%, 75% 100%, 65% 97%, 55% 100%, 45% 96%, 35% 100%, 25% 97%, 15% 100%, 5% 96%, 0% 92%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.6s ease;
         }
+        .hero-ripped.revealed { opacity: 1; transform: translateY(0); }
         .hero-ripped h1 {
             font-size: 2.2rem;
             font-weight: 800;
-            letter-spacing: -0.3px;
             background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
             background-clip: text;
             -webkit-background-clip: text;
@@ -265,7 +256,6 @@
             font-weight: 600;
             font-size: 0.7rem;
             padding: 0.2rem 1rem;
-            letter-spacing: 0.5px;
             clip-path: polygon(0% 0%, 95% 0%, 100% 30%, 100% 70%, 96% 100%, 0% 100%);
         }
         .section-title {
@@ -277,18 +267,40 @@
             padding-bottom: 0.3rem;
             font-family: 'IBM Plex Mono', monospace;
         }
+        .card-with-img {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+        .card-content {
+            flex: 2;
+            min-width: 200px;
+        }
+        .card-image {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-image svg {
+            width: 100%;
+            max-width: 160px;
+            height: auto;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+            transition: transform 0.2s;
+        }
+        .card-image svg:hover { transform: scale(1.02); }
         .highlight-box {
             padding: 1.2rem 1.5rem;
-            margin: 1.25rem 0;
+            margin: 1rem 0;
             font-weight: 500;
             background: var(--highlight-warning);
             border-left: 6px solid var(--accent-gold);
             clip-path: polygon(0% 0%, 98% 0%, 100% 10%, 100% 90%, 97% 100%, 0% 100%, 0% 90%, 2% 10%);
         }
-        .highlight-danger {
-            background: var(--highlight-danger);
-            border-left-color: var(--accent-red);
-        }
+        .highlight-danger { background: var(--highlight-danger); border-left-color: var(--accent-red); }
+        .highlight-success { background: var(--highlight-success); border-left-color: var(--check-color); }
         .grid-2col {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -298,7 +310,6 @@
         .rule-rip {
             padding: 1rem 1.2rem;
             background: var(--paper-bg);
-            position: relative;
             clip-path: polygon(0% 3%, 3% 0%, 97% 0%, 100% 3%, 100% 94%, 95% 100%, 88% 95%, 80% 100%, 70% 96%, 58% 100%, 48% 95%, 36% 100%, 24% 96%, 12% 100%, 4% 95%, 0% 90%);
             box-shadow: 4px 5px 10px var(--paper-shadow);
         }
@@ -319,13 +330,7 @@
             position: relative;
             font-weight: 500;
         }
-        .checklist li::before {
-            content: "✂️";
-            position: absolute;
-            left: 0;
-            top: -1px;
-            font-size: 1rem;
-        }
+        .checklist li::before { content: "✂️"; position: absolute; left: 0; top: -1px; font-size: 1rem; }
         .number-circle {
             display: inline-flex;
             align-items: center;
@@ -354,45 +359,54 @@
             padding-top: 1rem;
             border-top: 1px solid var(--border-ink);
         }
+        .sticker-rip {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.3;
+            bottom: -8px;
+            right: -6px;
+            transform: rotate(5deg);
+            pointer-events: none;
+        }
         @media (max-width: 680px) {
             .container { padding: 1rem; }
             .hero-ripped h1 { font-size: 1.5rem; }
             .paper-card { padding: 1.2rem; }
             .section-title { font-size: 1.4rem; }
+            .card-with-img { flex-direction: column; }
+            .card-image svg { max-width: 120px; margin: 0 auto; }
         }
     </style>
 </head>
 <body>
 
-<!-- Фиксированные декоративные элементы по теме (камера, молоток, лупа, клочок) -->
-<svg class="deco-camera" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="25" y="35" width="50" height="40" rx="6" fill="var(--accent-gold)" opacity="0.8"/>
-    <circle cx="50" cy="55" r="12" fill="var(--paper-bg)" stroke="var(--border-ink)" stroke-width="2"/>
-    <rect x="40" y="28" width="20" height="8" fill="var(--accent-red)" opacity="0.7"/>
-    <circle cx="68" cy="48" r="3" fill="var(--paper-bg)"/>
-</svg>
-
-<svg class="deco-gavel" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="35" y="20" width="22" height="40" fill="var(--accent-blue)" opacity="0.7" transform="rotate(15,35,20)"/>
-    <rect x="22" y="12" width="36" height="12" fill="var(--accent-gold)" opacity="0.8" transform="rotate(-10,22,12)"/>
-    <circle cx="46" cy="62" r="6" fill="var(--accent-red)" opacity="0.5"/>
-</svg>
-
-<svg class="deco-magnifier" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="28" cy="28" r="16" stroke="var(--accent-gold)" stroke-width="3" fill="none" opacity="0.8"/>
-    <line x1="38" y1="38" x2="50" y2="50" stroke="var(--accent-red)" stroke-width="4" stroke-linecap="round"/>
-</svg>
-<div class="deco-torn">📄✂️</div>
+<!-- Усиленный анимированный фон с канцелярией -->
+<div class="floating-bg">
+    <div class="float-icon">📷</div>
+    <div class="float-icon">⚖️</div>
+    <div class="float-icon">🔍</div>
+    <div class="float-icon">📄</div>
+    <div class="float-icon">©️</div>
+    <div class="float-icon">🖼️</div>
+    <div class="float-icon">📸</div>
+    <div class="float-icon">⚙️</div>
+    <div class="float-icon">📑</div>
+    <div class="float-icon">🖍️</div>
+    <!-- канцелярские штучки -->
+    <div class="stationery">📎</div>
+    <div class="stationery">📍</div>
+    <div class="stationery">✂️</div>
+    <div class="stationery">📌</div>
+</div>
 
 <div class="overlay" id="menuOverlay"></div>
-
 <div class="guide-menu" id="guideMenu">
     <div class="guide-header">
         <h3>📜 Путеводитель <button class="close-guide" id="closeGuideBtn">&times;</button></h3>
-        <p style="font-size: 0.85rem;">Навигация по рваным заметкам</p>
+        <p style="font-size: 0.85rem; text-align: center;">Навигация по живой памятке</p>
     </div>
     <ul class="guide-nav">
-        <li><a href="#main-rule">✂️ Главное правило</a></li>
+        <li><a href="#main-rule">⚡ Главное правило</a></li>
         <li><a href="#risks">⚠️ Штрафы и риски</a></li>
         <li><a href="#exceptions">🔓 Исключения</a></li>
         <li><a href="#legal">✅ Легальные способы</a></li>
@@ -405,94 +419,152 @@
         <div class="fine-print" style="margin-top: 1rem; text-align: center;">«Бумага стерпит всё, но авторское право — нет»</div>
     </div>
 </div>
-
 <button class="burger-fixed" id="burgerBtn">🗒️ Путеводитель</button>
 
 <div class="container">
-    <div class="hero-ripped">
-        <div class="badge-rip">📸 вырвано из блокнота права</div>
-        <h1>Изображения в интернете:<br>памятка по авторскому праву</h1>
-        <p style="margin-top: 0.8rem;">Коротко и неровно, но по делу: штрафы, правила, безопасное использование.</p>
-        <div style="margin-top: 0.8rem; font-size: 0.8rem;">⚖️ ©, 🖼️, 🧾 — каждый пиксель под защитой</div>
+    <div class="hero-ripped" id="heroElem">
+        <h1>Изображения в интернете:<br>памятка по использованию картинок из интернета</h1>
     </div>
 
+    <!-- карточка 1: фотоаппарат -->
     <div class="paper-card" id="main-rule">
-        <div class="section-title">⚡ Главное правило</div>
-        <div class="highlight-box highlight-danger">
-            <strong>❌ НЕЛЬЗЯ просто взять картинку из Google / соцсетей и использовать.</strong><br>
-            Любое изображение по умолчанию охраняется авторским правом. Отсутствие имени автора или знака © не даёт права.
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">⚡ Главное правило</div>
+                <div class="highlight-box highlight-danger">
+                    <strong>❌ НЕЛЬЗЯ просто взять картинку из Google / соцсетей и использовать.</strong><br>
+                    Любое изображение по умолчанию охраняется авторским правом.
+                </div>
+                <p><span class="number-circle">!</span> Даже любительское фото на телефон — объект интеллектуальной собственности.</p>
+            </div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <rect x="20" y="30" width="60" height="42" rx="8" fill="var(--accent-gold)" opacity="0.8"/>
+                    <circle cx="50" cy="51" r="14" fill="var(--paper-bg)" stroke="var(--border-ink)" stroke-width="2.5"/>
+                    <rect x="38" y="22" width="24" height="10" rx="3" fill="var(--accent-red)" opacity="0.9"/>
+                    <circle cx="70" cy="44" r="4" fill="var(--paper-bg)"/>
+                </svg>
+            </div>
         </div>
-        <p><span class="number-circle">!</span> Даже любительское фото на телефон — объект интеллектуальной собственности.</p>
         <div class="sticker-rip">📷⚠️</div>
     </div>
 
+    <!-- карточка 2: судебный молоток -->
     <div class="paper-card" id="risks">
-        <div class="section-title">⚠️ Чем грозит нарушение?</div>
-        <div class="highlight-box highlight-danger" style="margin-bottom: 1rem;">
-            <strong>💸 Компенсация правообладателю:</strong> от <strong style="color: var(--accent-red); font-size: 1.2rem;">10 000 ₽</strong> до <strong style="color: var(--accent-red);">5 млн ₽</strong><br>
-            либо двукратный размер стоимости прав.
-        </div>
-        <div class="grid-2col">
-            <div class="rule-rip">
-                <strong>🏛️ Административные штрафы</strong>
-                <div class="price-row">Граждане: 1 500 – 2 000 ₽</div>
-                <div class="price-row">Должностные лица: 10 000 – 20 000 ₽</div>
-                <div class="price-row">Юрлица: 30 000 – 40 000 ₽ + конфискация</div>
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">⚠️ Чем грозит нарушение?</div>
+                <div class="highlight-box highlight-danger">
+                    <strong>💸 Компенсация:</strong> от <strong style="color: var(--accent-red);">10 000 ₽</strong> до <strong style="color: var(--accent-red);">5 млн ₽</strong>
+                </div>
+                <div class="grid-2col">
+                    <div class="rule-rip"><strong>🏛️ Штрафы</strong><div class="price-row">Граждане: 1 500–2 000 ₽</div><div class="price-row">Юрлица: 30 000–40 000 ₽</div></div>
+                    <div class="rule-rip"><strong>⚖️ Судебные риски</strong><p>Иски на десятки тысяч ₽ даже за одно фото.</p></div>
+                </div>
             </div>
-            <div class="rule-rip">
-                <strong>⚖️ Судебные риски</strong>
-                <p style="margin-top: 0.4rem;">Фотограф может подать в суд спустя годы. Реальные иски: от 10 000 ₽ до миллионов рублей.</p>
-                <div style="font-size: 1.4rem; text-align: right;">⚖️</div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <rect x="40" y="25" width="24" height="45" rx="3" fill="var(--accent-blue)" opacity="0.8" transform="rotate(12,40,25)"/>
+                    <rect x="25" y="18" width="44" height="14" rx="4" fill="var(--accent-gold)" opacity="0.9" transform="rotate(-8,25,18)"/>
+                    <rect x="48" y="70" width="12" height="18" fill="var(--accent-red)" opacity="0.7"/>
+                </svg>
             </div>
         </div>
-        <div class="fine-print">* Гражданско-правовая ответственность — самая опасная.</div>
     </div>
 
+    <!-- карточка 3: щит -->
     <div class="paper-card" id="exceptions">
-        <div class="section-title">🔓 Когда можно без разрешения?</div>
-        <div class="grid-2col">
-            <div class="rule-rip"><strong>📘 Личное использование</strong><br>Для себя, семьи, друзей (не на сайт, не в коммерцию).</div>
-            <div class="rule-rip"><strong>📰 Цитирование</strong><br>Научные, информационные цели. ОБЯЗАТЕЛЬНО указать автора и источник.</div>
-            <div class="rule-rip"><strong>🏛️ Общественное достояние</strong><br>Автор умер более 70 лет назад.</div>
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">🔓 Когда можно без разрешения?</div>
+                <div class="grid-2col">
+                    <div class="rule-rip"><strong>📘 Личное использование</strong><br>Для себя и семьи</div>
+                    <div class="rule-rip"><strong>📰 Цитирование</strong><br>С указанием автора</div>
+                    <div class="rule-rip"><strong>🏛️ Общественное достояние</strong><br>Автор умер 70+ лет</div>
+                </div>
+                <div class="highlight-box">❗ Цитирование не работает для рекламы и товаров.</div>
+            </div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <path d="M50 12 L68 28 L68 56 L50 72 L32 56 L32 28 Z" fill="var(--accent-gold)" opacity="0.7" stroke="var(--border-ink)" stroke-width="2"/>
+                    <text x="42" y="52" font-size="26" fill="var(--paper-bg)" font-weight="bold">✓</text>
+                </svg>
+            </div>
         </div>
-        <div class="highlight-box">❗ Цитирование не работает для рекламы, баннеров и товаров.</div>
     </div>
 
+    <!-- карточка 4: лупа -->
     <div class="paper-card" id="legal">
-        <div class="section-title">✅ Легальные способы (3 шт.)</div>
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div><span class="number-circle">1</span> <strong>Фотостоки</strong> — Depositphotos, Unsplash. Покупаете лицензию (стандарт / редакционка / расширенная).</div>
-            <div><span class="number-circle">2</span> <strong>Разрешение автора</strong> — письменно, с указанием целей. Сохранить переписку.</div>
-            <div><span class="number-circle">3</span> <strong>Нейросети (Kandinsky, Midjourney)</strong> — уникальное изображение, но проверьте условия сервиса.</div>
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">✅ Легальные способы</div>
+                <div><span class="number-circle">1</span> <strong>Фотостоки</strong> — лицензии под ваш тип использования.</div>
+                <div><span class="number-circle">2</span> <strong>Разрешение автора</strong> — письменно, сохранить переписку.</div>
+                <div><span class="number-circle">3</span> <strong>Нейросети</strong> — уникальное изображение, но проверьте условия.</div>
+                <div class="highlight-box highlight-success">💡 Купить сток дешевле, чем платить штраф 50 000 ₽.</div>
+            </div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <circle cx="40" cy="40" r="20" stroke="var(--accent-gold)" stroke-width="4" fill="none"/>
+                    <line x1="54" y1="54" x2="74" y2="74" stroke="var(--accent-red)" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="8" fill="var(--accent-blue)" opacity="0.5"/>
+                </svg>
+            </div>
         </div>
-        <div class="highlight-box highlight-success" style="margin-top: 1rem;">💡 Золотое правило бизнеса: купить сток дешевле, чем платить штраф 50 000 ₽.</div>
         <div class="sticker-rip">🛡️✅</div>
     </div>
 
+    <!-- карточка 5: документ -->
     <div class="paper-card" id="special">
-        <div class="section-title">🧩 Особые случаи</div>
-        <div class="grid-2col">
-            <div class="rule-rip"><strong>📸 «Купил фотосессию — права мои?»</strong><br>Нет, если в договоре нет передачи исключительных прав. Они у фотографа.</div>
-            <div class="rule-rip"><strong>🎨 Переделал картинку?</strong><br>Переработка (цвет, коллаж) требует согласия автора. Права общие.</div>
-            <div class="rule-rip"><strong>🔄 Embed из Instagram*</strong><br>Для статьи — возможно цитирование, для коммерции — риск.</div>
-            <div class="rule-rip"><strong>🧑‍🤝‍🧑 Люди на фото?</strong><br>Для рекламы нужно согласие. Исключения: публичные мероприятия.</div>
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">🧩 Особые случаи</div>
+                <div class="grid-2col">
+                    <div class="rule-rip"><strong>📸 Фотосессия?</strong><br>Права у фотографа</div>
+                    <div class="rule-rip"><strong>🎨 Переделка?</strong><br>Требует согласия</div>
+                    <div class="rule-rip"><strong>🔄 Embed</strong><br>Для статьи — рискованно</div>
+                    <div class="rule-rip"><strong>🧑‍🤝‍🧑 Люди на фото</strong><br>Для рекламы нужно согласие</div>
+                </div>
+            </div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <rect x="22" y="18" width="56" height="68" rx="5" fill="var(--accent-blue)" opacity="0.6"/>
+                    <line x1="32" y1="36" x2="68" y2="36" stroke="var(--paper-bg)" stroke-width="2.5"/>
+                    <line x1="32" y1="48" x2="60" y2="48" stroke="var(--paper-bg)" stroke-width="2.5"/>
+                    <line x1="32" y1="60" x2="65" y2="60" stroke="var(--paper-bg)" stroke-width="2.5"/>
+                    <circle cx="70" cy="72" r="10" fill="var(--accent-gold)" opacity="0.8"/>
+                    <text x="66" y="77" font-size="14" fill="white" font-weight="bold">?</text>
+                </svg>
+            </div>
         </div>
-        <div class="fine-print">* социальная сеть признана экстремистской в РФ</div>
+        <div class="fine-print">* Instagram — признан экстремистским в РФ</div>
     </div>
 
+    <!-- карточка 6: чек-лист -->
     <div class="paper-card" id="checklist">
-        <div class="section-title">📋 Чек-лист (оторви и проверь)</div>
-        <ul class="checklist">
-            <li><strong>Источник:</strong> сток / разрешение автора / ИИ?</li>
-            <li><strong>Цель:</strong> коммерческая или редакционная?</li>
-            <li><strong>Указано ли имя автора?</strong> если требует лицензия</li>
-            <li><strong>Письменное доказательство:</strong> чек, скрин переписки, договор?</li>
-            <li><strong>Модельный релиз?</strong> если люди в рекламе</li>
-        </ul>
-        <div class="highlight-box highlight-success" style="margin-top: 0.8rem;">✅ Всё проверил — можно публиковать без страха.</div>
+        <div class="card-with-img">
+            <div class="card-content">
+                <div class="section-title">📋 Чек-лист (оторви и проверь)</div>
+                <ul class="checklist">
+                    <li><strong>Источник:</strong> сток / разрешение автора / ИИ?</li>
+                    <li><strong>Цель:</strong> коммерческая или редакционная?</li>
+                    <li><strong>Указано ли имя автора?</strong></li>
+                    <li><strong>Письменное доказательство:</strong> чек, скрин переписки?</li>
+                    <li><strong>Модельный релиз?</strong> если люди в рекламе</li>
+                </ul>
+                <div class="highlight-box highlight-success">✅ Всё проверил — можно публиковать без страха.</div>
+            </div>
+            <div class="card-image">
+                <svg viewBox="0 0 100 100" fill="none">
+                    <rect x="18" y="22" width="64" height="58" rx="8" fill="var(--highlight-success)" stroke="var(--check-color)" stroke-width="2.5"/>
+                    <path d="M35 54 L46 66 L68 40" stroke="var(--check-color)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
         <div class="sticker-rip">🔍📄</div>
     </div>
 
+    <!-- карточка 7: резюме -->
     <div class="paper-card" id="summary">
         <div class="section-title">📌 На вырванном клочке</div>
         <div class="grid-2col">
@@ -503,33 +575,27 @@
         </div>
         <div class="fine-print" style="text-align: center;">Составлено по материалам Tilda Education и Digital Rights Center. Не является юридической консультацией.</div>
     </div>
-    <footer>© 2025 · Памятка с рваным краем · Берегите авторские права</footer>
+    <footer>©Згеря Илья 2026 · Берегите авторские права</footer>
 </div>
 
 <script>
     const bodyEl = document.body;
-    const themeToggleInside = document.getElementById('themeToggleInside');
+    const themeToggle = document.getElementById('themeToggleInside');
     function setTheme(theme) {
-        if (theme === 'dark') {
-            bodyEl.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            bodyEl.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
+        if (theme === 'dark') { bodyEl.classList.add('dark'); localStorage.setItem('theme', 'dark'); }
+        else { bodyEl.classList.remove('dark'); localStorage.setItem('theme', 'light'); }
     }
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') bodyEl.classList.add('dark');
-    else if (saved === 'light') bodyEl.classList.remove('dark');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') bodyEl.classList.add('dark');
+    else if (savedTheme === 'light') bodyEl.classList.remove('dark');
     else if (window.matchMedia('(prefers-color-scheme: dark)').matches) bodyEl.classList.add('dark');
-    themeToggleInside.addEventListener('click', () => {
+    themeToggle.addEventListener('click', () => {
         if (bodyEl.classList.contains('dark')) setTheme('light');
         else setTheme('dark');
     });
-    const burger = document.getElementById('burgerBtn');
-    const guideMenu = document.getElementById('guideMenu');
-    const overlay = document.getElementById('menuOverlay');
-    const closeGuide = document.getElementById('closeGuideBtn');
+
+    const burger = document.getElementById('burgerBtn'), guideMenu = document.getElementById('guideMenu');
+    const overlay = document.getElementById('menuOverlay'), closeGuide = document.getElementById('closeGuideBtn');
     function openMenu() { guideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeMenu() { guideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
     burger.addEventListener('click', openMenu);
@@ -544,6 +610,16 @@
         });
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && guideMenu.classList.contains('open')) closeMenu(); });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.paper-card, .hero-ripped').forEach(el => observer.observe(el));
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.paper-card, .hero-ripped').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('revealed');
+        });
+    });
 </script>
 </body>
 </html>
